@@ -4,17 +4,13 @@ import { motion } from 'framer-motion';
 // 1. Import your photo from the assets folder
 import myImage from '../../assets/myimage.webp'; 
 
-// 2. Dynamically import the 3D background
-const Background3D = lazy(() => import('./Background3D'));
+
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative min-h-screen flex items-center justify-center bg-[#0b0f1a] overflow-hidden py-24 px-6 font-sans">
+    <section id="about" className="relative min-h-screen flex items-center justify-center bg-transparent overflow-hidden py-24 px-6 font-sans">
       
-      {/* 3D Background Canvas (Wrapped in Suspense) */}
-      <Suspense fallback={<div className="absolute inset-0 z-0 bg-transparent"></div>}>
-        <Background3D />
-      </Suspense>
+     
 
       {/* --- 2D Environment Effects --- */}
       
@@ -35,7 +31,7 @@ export default function AboutSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 w-full max-w-5xl mx-auto p-8 md:p-14 flex flex-col md:flex-row items-center gap-12 lg:gap-20 bg-[#0b0f1a]/40 backdrop-blur-md rounded-[2rem] border border-[#7c3aed]/20 shadow-[0_8px_40px_rgba(124,58,237,0.1)] will-change-transform"
+        className="relative z-10 w-full max-w-5xl mx-auto p-8 md:p-14 flex flex-col md:flex-row items-center gap-12 lg:gap-20 bg-transparent backdrop-blur-md rounded-[2rem] border border-[#7c3aed]/20 shadow-[0_8px_40px_rgba(124,58,237,0.1)] will-change-transform"
       >
         
         {/* LEFT SIDE: Profile Image with Neon Ring */}

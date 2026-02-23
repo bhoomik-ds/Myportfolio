@@ -3,11 +3,11 @@ import React, { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 
 // 1. We tell React to load the 3D background lazily (in the background)
-const Background3D = lazy(() => import('./Background3D'));
+
 
 const Hero = () => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050511]">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-transparent">
       
       {/* Deep Dark Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0f1c]/50 to-[#050511] z-0"></div>
@@ -21,9 +21,7 @@ const Hero = () => {
 
       {/* 2. We wrap the 3D Canvas in Suspense. 
           While the 3D math is calculating, it shows a blank dark background instead of freezing the site! */}
-      <Suspense fallback={<div className="absolute inset-0 z-0 bg-transparent"></div>}>
-        <Background3D />
-      </Suspense>
+      
 
       {/* Perspective Grid Floor */}
       <div className="absolute bottom-0 left-0 right-0 h-[40vh] z-0 opacity-40 pointer-events-none">

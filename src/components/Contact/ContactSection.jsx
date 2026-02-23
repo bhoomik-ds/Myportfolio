@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import InputField from './InputField';
 
-const Background3D = lazy(() => import('./Background3D'));
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -59,11 +59,9 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center py-32 px-6 bg-[#0b0f1a] overflow-hidden font-sans">
+    <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center py-32 px-6 bg-transparent overflow-hidden font-sans">
       
-      <Suspense fallback={<div className="absolute inset-0 z-0 bg-transparent"></div>}>
-        <Background3D />
-      </Suspense>
+      
 
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[500px] bg-[#7c3aed]/10 blur-[130px] rounded-full pointer-events-none"></div>
       
@@ -93,7 +91,7 @@ export default function ContactSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="w-full bg-[#0b0f1a]/60 backdrop-blur-md rounded-3xl border border-white/5 border-t-[#7c3aed]/50 p-8 md:p-12 shadow-[0_10px_50px_rgba(0,0,0,0.5)] relative overflow-hidden will-change-transform"
+          className="w-full bg-transparent backdrop-blur-md rounded-3xl border border-white/5 border-t-[#7c3aed]/50 p-8 md:p-12 shadow-[0_10px_50px_rgba(0,0,0,0.5)] relative overflow-hidden will-change-transform"
         >
           <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#7c3aed]/5 to-transparent pointer-events-none"></div>
 

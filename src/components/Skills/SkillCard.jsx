@@ -8,7 +8,7 @@ const SkillCard = ({ name, level, index, icon }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col p-6 rounded-2xl bg-[#0b0f1a]/40 backdrop-blur-xl border border-white/5 hover:border-[#7c3aed]/30 transition-all duration-500 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_40px_rgba(124,58,237,0.15)] hover:-translate-y-1"
+      className="group relative flex flex-col p-6 rounded-2xl bg-transparent backdrop-blur-xl border border-white/5 hover:border-[#7c3aed]/30 transition-all duration-500 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_40px_rgba(124,58,237,0.15)] hover:-translate-y-1"
     >
       {/* Subtle Inner Glow on Hover */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#7c3aed]/0 to-[#7c3aed]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>

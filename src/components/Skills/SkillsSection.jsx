@@ -11,8 +11,7 @@ import { MdDesignServices, MdOutlineCampaign } from 'react-icons/md';
 import { BsGraphUpArrow, BsFunnelFill } from 'react-icons/bs';
 import { AiOutlineApi, AiOutlineRobot } from 'react-icons/ai';
 
-// Lazy load the 3D canvas
-const Background3D = lazy(() => import('./Background3D'));
+
 
 const SKILLS_DATA = {
   Frontend: [
@@ -50,12 +49,10 @@ export default function SkillsSection() {
   const [activeTab, setActiveTab] = useState(CATEGORIES[0]);
 
   return (
-    <section id="skills" className="relative min-h-screen flex flex-col items-center py-32 px-6 bg-[#0b0f1a] overflow-hidden font-sans">
+    <section id="skills" className="relative min-h-screen flex flex-col items-center py-32 px-6 bg-transparent overflow-hidden font-sans">
       
       {/* Wrapped in Suspense */}
-      <Suspense fallback={<div className="absolute inset-0 z-0 bg-transparent"></div>}>
-        <Background3D />
-      </Suspense>
+     
 
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#7c3aed]/30 to-transparent"></div>
       <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#4f46e5]/10 blur-[150px] rounded-full pointer-events-none"></div>

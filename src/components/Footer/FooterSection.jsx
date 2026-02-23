@@ -1,6 +1,5 @@
 // client/src/components/Footer/FooterSection.jsx
 import { motion } from 'framer-motion';
-import Background3D from './Background3D';
 import SocialIcon from './SocialIcon';
 import logo from '../../assets/logo.webp';
 
@@ -15,10 +14,9 @@ const ICONS = {
 
 export default function FooterSection() {
   return (
-    <footer className="relative w-full h-[300px] flex flex-col items-center justify-end pb-8 bg-[#0b0f1a] overflow-hidden font-sans">
+    <footer className="relative w-full h-[300px] flex flex-col items-center justify-end pb-8 bg-transparent overflow-hidden font-sans">
       
-      {/* 3D Horizon & Vertical Light Beam */}
-      <Background3D />
+     
 
       {/* 2D Ambient Radial Glow (Top Center) */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#7c3aed]/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -31,7 +29,7 @@ export default function FooterSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full flex flex-col sm:flex-row justify-between items-center p-6 md:px-10 bg-[#0b0f1a]/60 backdrop-blur-xl border border-white/5 border-t-[#7c3aed]/50 rounded-2xl shadow-[0_-5px_30px_rgba(124,58,237,0.08)]"
+          className="w-full flex flex-col sm:flex-row justify-between items-center p-6 md:px-10 bg-transparent backdrop-blur-xl border border-white/5 border-t-[#7c3aed]/50 rounded-2xl shadow-[0_-5px_30px_rgba(124,58,237,0.08)]"
         >
           {/* Left Side: Developer Branding */}
           <div className="flex items-center gap-4 mb-6 sm:mb-0">

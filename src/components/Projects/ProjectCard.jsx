@@ -8,13 +8,13 @@ export default function ProjectCard({ project, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col h-full bg-[#0b0f1a]/50 backdrop-blur-xl rounded-2xl border border-white/5 hover:border-[#7c3aed]/40 transition-colors duration-500 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:shadow-[0_8px_40px_rgba(124,58,237,0.15)]"
+      className="group relative flex flex-col h-full bg-transparent backdrop-blur-xl rounded-2xl border border-white/5 hover:border-[#7c3aed]/40 transition-colors duration-500 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:shadow-[0_8px_40px_rgba(124,58,237,0.15)]"
     >
       <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 z-0 pointer-events-none"></div>
 
       {/* Top: Actual Project Image Area */}
-      <div className="relative h-48 w-full bg-[#0b0f1a] border-b border-white/5 overflow-hidden z-10">
-        <div className="absolute inset-0 bg-[#0b0f1a]/40 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+      <div className="relative h-48 w-full bg-transparent border-b border-white/5 overflow-hidden z-10">
+        <div className="absolute inset-0 bg-transparent group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
         
         {/* 1. ADDED loading="lazy" HERE */}
         <img 

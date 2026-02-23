@@ -1,70 +1,134 @@
 // client/src/components/Hero/Background3D.jsx
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Icosahedron, Torus, Sphere } from '@react-three/drei';
+import { Sphere, Stars, Torus, Sparkles, MeshDistortMaterial } from '@react-three/drei';
+import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocessing';
 
-// Individual animated shape components
-const AnimatedIcosahedron = () => {
-  const meshRef = useRef();
-  // Rotate the shape smoothly on every frame
+// 1. Cinematic Camera with Smooth Mouse Parallax
+const CinematicCamera = () => {
+  useFrame((state) => {
+    const targetX = state.pointer.x * 2;
+    const targetY = state.pointer.y * 2 + 5; 
+    state.camera.position.x += (targetX - state.camera.position.x) * 0.02;
+    state.camera.position.y += (targetY - state.camera.position.y) * 0.02;
+    state.camera.lookAt(0, 0, 0);
+  });
+  return null;
+};
+
+// 2. The Sun: Upgraded Boiling Plasma & Intense Glow (Now Yellow)
+const Sun = () => {
+  const sunRef = useRef();
+  const coronaRef = useRef();
+  
   useFrame((state, delta) => {
-    meshRef.current.rotation.x += delta * 0.2;
-    meshRef.current.rotation.y += delta * 0.3;
+    sunRef.current.rotation.y += delta * 0.065; 
+    coronaRef.current.rotation.y -= delta * 0.08; 
   });
 
   return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={2}>
-      <Icosahedron ref={meshRef} args={[1, 0]} position={[-4, 1, -2]}>
-        <meshStandardMaterial color="#8b5cf6" wireframe opacity={0.6} transparent />
-      </Icosahedron>
-    </Float>
+    <group>
+      {/* Super-hot solid inner core - Changed to bright yellow */}
+      <mesh ref={sunRef}>
+        <Sphere args={[2.3, 64, 64]}>
+          <meshBasicMaterial color="#ffff00" />
+        </Sphere>
+      </mesh>
+      
+      {/* Boiling, rippling plasma surface - Changed to yellow/gold */}
+      <mesh ref={coronaRef}>
+        <Sphere args={[2.5, 64, 64]}>
+          <MeshDistortMaterial 
+            color="#fcd34d" // Rich yellow-gold
+            emissive="#f59e0b" // Amber emissive glow
+            emissiveIntensity={2}
+            distort={0.25} 
+            speed={2.5}    
+            transparent 
+            opacity={0.85} 
+          />
+        </Sphere>
+      </mesh>
+
+      {/* Smooth outer atmospheric glow / Corona - Changed to warm yellow */}
+      <mesh>
+        <Sphere args={[2.8, 32, 32]}>
+          <meshBasicMaterial color="#fbbf24" transparent opacity={0.15} blending={2} />
+        </Sphere>
+      </mesh>
+
+      {/* Primary dynamic light source - Changed to yellow */}
+      <pointLight intensity={100} distance={200} color="#fbbf24" decay={1.5} />
+    </group>
   );
 };
 
-const AnimatedTorus = () => {
-  const meshRef = useRef();
+// 3. Ultra-Realistic Planets with Orbit Rings
+const Planet = ({ size, radius, orbitSpeed, rotationSpeed, color, metalness = 0.1, roughness = 0.8, tilt = 0, hasAtmosphere = false }) => {
+  const orbitGroupRef = useRef();
+  const planetMeshRef = useRef();
+  const randomOffset = useMemo(() => Math.random() * Math.PI * 2, []);
+
   useFrame((state, delta) => {
-    meshRef.current.rotation.x -= delta * 0.15;
-    meshRef.current.rotation.y += delta * 0.2;
+    orbitGroupRef.current.rotation.y += delta * orbitSpeed;
+    planetMeshRef.current.rotation.y += delta * rotationSpeed;
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={1} floatIntensity={1.5}>
-      <Torus ref={meshRef} args={[1.2, 0.4, 16, 32]} position={[5, -1, -3]}>
-        <meshStandardMaterial color="#d946ef" wireframe opacity={0.4} transparent />
+    <group ref={orbitGroupRef} rotation={[0, randomOffset, 0]}>
+      <Torus args={[radius, 0.005, 16, 128]} rotation={[Math.PI / 2, 0, 0]}>
+        <meshBasicMaterial color="#ffffff" transparent opacity={0.1} />
       </Torus>
-    </Float>
+      <group position={[radius, 0, 0]} rotation={[0, 0, tilt]}>
+        <mesh ref={planetMeshRef}>
+          <Sphere args={[size, 64, 64]}>
+            <meshStandardMaterial color={color} metalness={metalness} roughness={roughness} />
+          </Sphere>
+          {hasAtmosphere && (
+            <Sphere args={[size * 1.05, 32, 32]}>
+              <meshStandardMaterial color="#60a5fa" transparent opacity={0.15} roughness={1} />
+            </Sphere>
+          )}
+        </mesh>
+      </group>
+    </group>
   );
 };
 
-const AnimatedSphere = () => {
-  const meshRef = useRef();
+// 4. Scene Assembly
+const UniverseScene = () => {
+  const systemRef = useRef();
   useFrame((state, delta) => {
-    meshRef.current.rotation.y -= delta * 0.1;
+    systemRef.current.rotation.y += delta * 0.013; 
   });
 
   return (
-    <Float speed={3} rotationIntensity={0.2} floatIntensity={1}>
-      <Sphere ref={meshRef} args={[0.6, 32, 32]} position={[-3, -2, -1]}>
-        <meshStandardMaterial color="#3b82f6" roughness={0.1} metalness={0.8} opacity={0.8} transparent />
-      </Sphere>
-    </Float>
+    <group ref={systemRef} rotation={[0.2, 0, -0.1]} position={[0, -2, -8]}>
+      <Sun />
+      <Planet size={0.5} radius={7} orbitSpeed={0.13} rotationSpeed={1.04} color="#2563eb" metalness={0.4} roughness={0.6} tilt={0.41} hasAtmosphere={true} />
+      <Planet size={0.35} radius={10} orbitSpeed={0.104} rotationSpeed={0.91} color="#dc2626" roughness={0.9} />
+      <Planet size={1.2} radius={16} orbitSpeed={0.052} rotationSpeed={2.6} color="#b45309" roughness={0.7} />
+    </group>
   );
 };
 
 const Background3D = () => {
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none">
-      <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
-        {/* Soft lighting setup for a neon/futuristic vibe */}
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#a855f7" />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#ec4899" />
-        
-        {/* 3D Objects */}
-        <AnimatedIcosahedron />
-        <AnimatedTorus />
-        <AnimatedSphere />
+    <div className="absolute inset-0 z-0 pointer-events-none bg-[#020205]">
+      <Canvas camera={{ position: [0, 5, 20], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: false }}>
+        <color attach="background" args={['#020205']} />
+        <fog attach="fog" args={['#020205', 10, 40]} />
+        <ambientLight intensity={0.02} color="#ffffff" />
+        <CinematicCamera />
+        <UniverseScene />
+        <Stars radius={100} depth={50} count={8000} factor={3} saturation={0.5} fade speed={0.65} />
+        <Sparkles count={200} scale={30} size={4} speed={0.13} opacity={0.05} color="#4c1d95" />
+        <Sparkles count={200} scale={40} size={6} speed={0.26} opacity={0.03} color="#9333ea" />
+        <EffectComposer disableNormalPass>
+          <Bloom luminanceThreshold={0.2} mipmapBlur intensity={1.5} />
+          <Noise opacity={0.03} />
+          <Vignette eskil={false} offset={0.1} darkness={1.1} />
+        </EffectComposer>
       </Canvas>
     </div>
   );

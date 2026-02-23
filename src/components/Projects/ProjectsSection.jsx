@@ -3,8 +3,7 @@ import React, { useState, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProjectCard from './ProjectCard';
 
-// Lazy Load 3D Background
-const Background3D = lazy(() => import('./Background3D'));
+
 
 const PROJECTS_DATA = [
   {
@@ -67,12 +66,10 @@ export default function ProjectsSection() {
   );
 
   return (
-    <section id="projects" className="relative min-h-screen flex flex-col items-center py-32 px-6 bg-[#0b0f1a] font-sans">
+    <section id="projects" className="relative min-h-screen flex flex-col items-center py-32 px-6 bg-transparent font-sans">
       
       {/* Wrapped in Suspense */}
-      <Suspense fallback={<div className="absolute inset-0 z-0 bg-transparent"></div>}>
-        <Background3D />
-      </Suspense>
+      
 
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#7c3aed]/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
 
@@ -100,7 +97,7 @@ export default function ProjectsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-3 mb-16 p-1.5 bg-[#0b0f1a]/60 backdrop-blur-md rounded-full border border-white/10 will-change-transform"
+          className="flex flex-wrap justify-center gap-3 mb-16 p-1.5 bg-transparent backdrop-blur-md rounded-full border border-white/10 will-change-transform"
         >
           {FILTERS.map((filter) => (
             <button
