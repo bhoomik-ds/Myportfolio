@@ -19,8 +19,8 @@ const SectionLoader = () => (
 
 function App() {
   return (
-    // The main wrapper with a deep dark background
-    <div className="min-h-screen bg-[#050511] font-sans selection:bg-[#7c3aed]/30 selection:text-white">
+    // THE FIX: Added overflow-x-hidden, w-full, and relative to this wrapper
+    <div className="min-h-screen bg-[#050511] font-sans selection:bg-[#7c3aed]/30 selection:text-white overflow-x-hidden w-full relative">
       
       {/* The floating glassmorphism navbar (Loads Instantly) */}
       <Navbar />
