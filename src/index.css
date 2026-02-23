@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Custom animation for the Hero button shine effect */
+@keyframes shimmer {
+  0% { transform: translateX(-150%) skewX(-15deg); }
+  100% { transform: translateX(150%) skewX(-15deg); }
+}
