@@ -1,19 +1,26 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // 1. Added framer-motion for smooth mobile menu
+import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/logo.webp'; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  // ADDED: Track which section is currently active (defaults to Home)
+  const [activeItem, setActiveItem] = useState('Home');
+
+  // Array of all navigation items to keep the code clean
+  const navItems = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
 
   return (
-    // Floating Container with Glassmorphism
     <div className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
       
-      {/* 2. Adjusted mobile padding (px-4 py-2) vs desktop padding (sm:px-6 sm:py-3) */}
       <div className="bg-slate-900/60 backdrop-blur-md border border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.15)] rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between">
         
         {/* Left Side: Logo & Text */}
-        <a href="#home" className="flex items-center gap-2 sm:gap-3 cursor-pointer group">
+        <a 
+          href="#home" 
+          onClick={() => setActiveItem('Home')}
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group"
+        >
           <img 
             src={logo} 
             alt="Bhoomik Logo" 
@@ -27,36 +34,36 @@ const Navbar = () => {
           </div>
         </a>
 
-        {/* Middle: Desktop Navigation Links */}
+        {/* Middle: Desktop Navigation Links (FIXED UNDERLINE BUG) */}
         <nav className="hidden md:flex items-center gap-8">
-          <a href="#home" className="relative text-white font-medium group">
-            Home
-            <span className="absolute -bottom-2 left-0 w-full h-1 bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.8)] rounded-full"></span>
-          </a>
-          
-          {['About', 'Skills', 'Projects', 'Contact'].map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} className="text-slate-300 hover:text-white font-medium transition-colors relative group">
+          {navItems.map((item) => (
+            <a 
+              key={item} 
+              href={`#${item.toLowerCase()}`}
+              onClick={() => setActiveItem(item)}
+              className={`relative font-medium transition-colors group ${
+                activeItem === item ? 'text-white' : 'text-slate-300 hover:text-white'
+              }`}
+            >
               {item}
-              <span className="absolute -bottom-2 left-0 w-0 h-1 bg-purple-500/50 rounded-full transition-all group-hover:w-full"></span>
+              {/* Dynamic Underline: Stays full width if active, else grows on hover */}
+              <span 
+                className={`absolute -bottom-2 left-0 h-1 rounded-full transition-all duration-300 ${
+                  activeItem === item 
+                    ? 'w-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.8)]' 
+                    : 'w-0 bg-purple-500/50 group-hover:w-full'
+                }`}
+              ></span>
             </a>
           ))}
         </nav>
 
-        {/* Right Side: Dark Mode Toggle & Button */}
+        {/* Right Side: Button & Mobile Menu Toggle (DARK MODE BUTTON REMOVED) */}
         <div className="flex items-center gap-3 sm:gap-4">
           
-          <button 
-            aria-label="Toggle Dark Mode"
-            className="p-2 rounded-full border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition-colors hidden sm:block"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-            </svg>
-          </button>
-
-          {/* 3. Scaled down the button slightly on mobile so it fits perfectly */}
           <a 
             href="#contact" 
+            onClick={() => setActiveItem('Contact')}
             className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white px-4 py-1.5 sm:px-5 sm:py-2 rounded-full font-semibold flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_rgba(168,85,247,0.7)] text-xs sm:text-sm md:text-base cursor-pointer"
           >
             Hire Me
@@ -66,7 +73,6 @@ const Navbar = () => {
             </svg>
           </a>
 
-          {/* 4. Hamburger Menu that turns into an "X" when opened */}
           <button 
             aria-label="Toggle Mobile Menu"
             className="md:hidden text-slate-300 hover:text-white p-1"
@@ -90,7 +96,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* 5. Smooth Dropdown Animation using AnimatePresence */}
+      {/* Mobile Dropdown (FIXED ACTIVE HIGHLIGHT) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
@@ -100,12 +106,19 @@ const Navbar = () => {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="md:hidden mt-4 bg-slate-900/95 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-4 flex flex-col gap-4 shadow-[0_0_20px_rgba(168,85,247,0.15)] origin-top"
           >
-            {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((item) => (
+            {navItems.map((item) => (
               <a 
                 key={item} 
                 href={`#${item.toLowerCase()}`} 
-                className={`text-lg font-medium py-2 px-4 rounded-lg transition-colors ${item === 'Home' ? 'text-purple-400 bg-purple-500/10' : 'text-slate-300 hover:bg-white/5 hover:text-white'}`}
-                onClick={() => setIsOpen(false)}
+                className={`text-lg font-medium py-2 px-4 rounded-lg transition-colors ${
+                  activeItem === item 
+                    ? 'text-purple-400 bg-purple-500/10' 
+                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                }`}
+                onClick={() => {
+                  setIsOpen(false);
+                  setActiveItem(item); // Update active state when clicked on mobile
+                }}
               >
                 {item}
               </a>
