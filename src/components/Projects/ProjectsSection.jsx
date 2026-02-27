@@ -3,56 +3,33 @@ import React, { useState, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProjectCard from './ProjectCard';
 
-
-
 const PROJECTS_DATA = [
   {
-  id: 1,
-  title: 'BookMyConcert',
-  category: 'Web Apps',
-  desc: 'A full-stack event ticketing platform featuring secure payment integration and dynamic seat management.',
-  tech: ['MERN', 'Razorpay', 'Vercel'],
-  image: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1974&auto=format&fit=crop'
-},
+    id: 1,
+    title: 'BookMyConcert',
+    category: 'Web Apps',
+    desc: 'A full-stack event ticketing platform featuring secure payment integration and dynamic seat management.',
+    tech: ['MERN', 'Razorpay', 'Vercel'],
+    image: 'https://res.cloudinary.com/dd4lbhc8g/image/upload/v1772192004/Screenshot_2026-02-27_164946_e3tcoh.png',
+    link: 'https://concert-ticketbooking.vercel.app/' // ADDED LINK
+  },
   { 
     id: 2, 
-    title: 'Easycart E-Commerce', 
+    title: 'Online Information', 
     category: 'Web Apps', 
-    desc: 'Modern digital storefront with seamless cart management, user authentication, and optimized checkout flow.', 
-    tech: ['React', 'Node.js', 'MongoDB'],
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop'
+    desc: 'Online Information is a simple web platform that provides users with organized and easily accessible information on various topics through a clean and user-friendly interface.', 
+    tech: ['Django', 'cloudinary', 'SQL'],
+    image: 'https://res.cloudinary.com/dd4lbhc8g/image/upload/v1772192069/Screenshot_2026-02-27_170323_idnys4.png',
+    link: 'https://onlineinformation.vercel.app/' // ADDED LINK
   },
   { 
     id: 3, 
-    title: 'Jarvis AI Assistant', 
+    title: 'Tours & Travels', 
     category: 'Web Apps', 
-    desc: 'Personal voice-activated AI assistant powered by advanced LLM integration for conversational task management.', 
-    tech: ['Python', 'Gemini API', 'SpeechRec'],
-    image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=800&auto=format&fit=crop'
-  },
-  { 
-    id: 4, 
-    title: 'Digital Analytics Hub', 
-    category: 'UI/UX', 
-    desc: 'Real-time marketing metrics dashboard with interactive data visualization for GA4 and SEO tracking.', 
-    tech: ['React', 'Tailwind', 'Chart.js'],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop'
-  },
-  { 
-    id: 5, 
-    title: 'Immersive Portfolio', 
-    category: '3D', 
-    desc: 'Cinematic WebGL portfolio with scroll-driven storytelling, physical materials, and Framer Motion.', 
-    tech: ['React', 'Three.js', 'GSAP'],
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop'
-  },
-  { 
-    id: 6, 
-    title: 'Enterprise CMS', 
-    category: 'Web Apps', 
-    desc: 'Custom content management system with advanced relational inlines and secure data architecture.', 
-    tech: ['Django', 'Python', 'PostgreSQL'],
-    image: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=800&auto=format&fit=crop'
+    desc: 'Tours & Travels is a travel website that showcases tour packages, destinations, and travel services to help users explore and plan their trips easily.', 
+    tech: ['MERN', 'cloudinary', 'Razorpay'],
+    image: 'https://res.cloudinary.com/dd4lbhc8g/image/upload/v1772192124/Screenshot_2026-02-27_170424_jhsdw5.png',
+    link: 'https://tours-travels-ivory.vercel.app/' // ADDED LINK
   },
 ];
 
@@ -68,9 +45,6 @@ export default function ProjectsSection() {
   return (
     <section id="projects" className="relative min-h-screen flex flex-col items-center py-32 px-6 bg-transparent font-sans">
       
-      {/* Wrapped in Suspense */}
-      
-
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#7c3aed]/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center">
@@ -122,7 +96,16 @@ export default function ProjectsSection() {
         <motion.div layout className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-20 will-change-transform">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
+              /* WRAPPED THE CARD IN AN A-TAG */
+              <a 
+                key={project.id} 
+                href={project.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block outline-none cursor-pointer"
+              >
+                <ProjectCard project={project} index={index} />
+              </a>
             ))}
           </AnimatePresence>
         </motion.div>
