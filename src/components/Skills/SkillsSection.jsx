@@ -15,7 +15,7 @@ import { AiOutlineApi, AiOutlineRobot } from 'react-icons/ai';
 
 const SKILLS_DATA = {
   'Digital Marketing': [
-    { name: 'SEO & Content', level: 85, icon: <TbSeo /> },
+    { name: 'SEO & Content', level: 80, icon: <TbSeo /> },
     { name: 'Google Analytics 4', level: 80, icon: <SiGoogleanalytics /> },
     { name: 'Social Strategy', level: 85, icon: <MdOutlineCampaign /> },
     { name: 'Campaign Mgt', level: 75, icon: <BsGraphUpArrow /> },
