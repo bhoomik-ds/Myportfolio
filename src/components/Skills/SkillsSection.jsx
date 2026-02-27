@@ -14,6 +14,13 @@ import { AiOutlineApi, AiOutlineRobot } from 'react-icons/ai';
 
 
 const SKILLS_DATA = {
+  'Digital Marketing': [
+    { name: 'SEO & Content', level: 85, icon: <TbSeo /> },
+    { name: 'Google Analytics 4', level: 80, icon: <SiGoogleanalytics /> },
+    { name: 'Social Strategy', level: 85, icon: <MdOutlineCampaign /> },
+    { name: 'Campaign Mgt', level: 75, icon: <BsGraphUpArrow /> },
+    { name: 'Conversion Opt.', level: 80, icon: <BsFunnelFill /> },
+  ],
   Frontend: [
     { name: 'React.js', level: 90, icon: <FaReact /> },
     { name: 'Tailwind CSS', level: 85, icon: <SiTailwindcss /> },
@@ -28,13 +35,7 @@ const SKILLS_DATA = {
     { name: 'Django', level: 70, icon: <SiDjango /> },
     { name: 'REST APIs', level: 85, icon: <AiOutlineApi /> },
   ],
-  'Digital Marketing': [
-    { name: 'SEO & Content', level: 85, icon: <TbSeo /> },
-    { name: 'Google Analytics 4', level: 80, icon: <SiGoogleanalytics /> },
-    { name: 'Social Strategy', level: 85, icon: <MdOutlineCampaign /> },
-    { name: 'Campaign Mgt', level: 75, icon: <BsGraphUpArrow /> },
-    { name: 'Conversion Opt.', level: 80, icon: <BsFunnelFill /> },
-  ],
+  
   Others: [
     { name: 'Python', level: 80, icon: <FaPython /> },
     { name: 'AI / ML', level: 65, icon: <AiOutlineRobot /> },
